@@ -1,0 +1,2 @@
+event=button/volumeup
+action=/etc/acpi/volume-change.sh +10
