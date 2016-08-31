@@ -1,0 +1,2 @@
+#!/bin/bash
+$HOME/bin/zulip --site https://ice.integration.grandrounds.com/

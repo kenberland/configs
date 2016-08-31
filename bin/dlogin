@@ -1,0 +1,13 @@
+
+pattern=${1:?"You must provide a string we can find the docker process with"}
+
+my_container_id=$(docker ps --no-trunc | awk '/'"${pattern}"'/ { print $1 }')
+
+if [ -z "${my_container_id}" ] ; then
+    echo "No container matched ${pattern}" 1>&2 
+    exit 1
+fi
+
+PID=$(docker inspect --format '{{.State.Pid}}' ${my_container_id})
+
+sudo nsenter --target $PID --mount --uts --ipc --net --pid
