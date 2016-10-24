@@ -1,0 +1,4 @@
+#!/bin/bash
+
+echo $$ >> /tmp/gc
+echo $@ >> /tmp/gc
