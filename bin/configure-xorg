@@ -6,3 +6,4 @@ xmodmap -e "keycode 110 = Home"
 xset m 20/8 2
 logger "configure-xorg finished"
 xinput --set-prop "13" "Device Accel Constant Deceleration" .65
+synclient TouchpadOff=1
