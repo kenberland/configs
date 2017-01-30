@@ -5,5 +5,6 @@ xmodmap -e "keycode 115 = End"
 xmodmap -e "keycode 110 = Home"
 xset m 20/8 2
 logger "configure-xorg finished"
-xinput --set-prop "13" "Device Accel Constant Deceleration" .65
+ID=$(xinput | grep TrackPoint | ruby -n -e '$_.match /id=(\d+)/; puts $1')
+xinput --set-prop $ID "Device Accel Constant Deceleration" .65
 synclient TouchpadOff=1
