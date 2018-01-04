@@ -1,10 +1,46 @@
 #!/bin/bash
 
+set -x
 logger "configure-xorg started"
-xmodmap -e "keycode 115 = End"
-xmodmap -e "keycode 110 = Home"
-xset m 20/8 2
-logger "configure-xorg finished"
-ID=$(xinput | grep TrackPoint | ruby -n -e '$_.match /id=(\d+)/; puts $1')
-xinput --set-prop $ID "Device Accel Constant Deceleration" .65
-synclient TouchpadOff=1
+
+function match_prop {
+    PROP=$(xinput --list-props $ID | grep "$1" | ruby -n -e '$_.match /(\d+)/; puts $1')
+}
+    
+
+logger "disable touchpad"
+ID=$(xinput | grep TouchPad | ruby -n -e '$_.match /id=(\d+)/; puts $1')
+xinput disable $ID
+
+logger "enable middle mouse emulation"
+ID=$(xinput | grep Generic\ Mouse | ruby -n -e '$_.match /id=(\d+)/; puts $1')
+MATCH="Evdev Middle Button Emulation"
+match_prop "$MATCH"
+if ! [ -x "$PROP" ]; then
+    MATCH="Middle Emulation Enabled ("
+    match_prop "$MATCH"
+fi
+xinput --set-prop $ID $PROP 1
+
+
+logger "enable wheel emulation"
+PROP=$(xinput --list-props $ID | grep 'Evdev Wheel Emulation' | head -1 | ruby -n -e '$_.match /(\d+)/; puts $1')
+xinput --set-prop $ID $PROP 1
+
+logger 'set wheel emulation button to middle (3)'
+PROP=$(xinput --list-props $ID | grep 'Evdev Wheel Emulation Button' | ruby -n -e '$_.match /(\d+)/; puts $1')
+xinput --set-prop $ID $PROP 3
+
+logger 'set the workstation mouse to accelerate slowly'
+
+ID=$(xinput | grep PixArt\ Microsoft\ USB\ Optical\ Mouse | ruby -n -e '$_.match /id=(\d+)/; puts $1')
+PROP=$(xinput --list-props $ID | grep 'Device Accel Velocity Scaling' | ruby -n -e '$_.match /(\d+)/; puts $1')
+xinput --set-prop $ID $PROP 2
+
+
+#xmodmap -e "keycode 115 = End"
+#xmodmap -e "keycode 110 = Home"
+#xset m 20/8 2
+#logger "configure-xorg finished"
+#xinput --set-prop $ID "Device Accel Constant Deceleration" .65
+#synclient TouchpadOff=1
