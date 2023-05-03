@@ -1,7 +1,0 @@
-[Desktop Entry]
-Comment=
-Terminal=false
-Name=chrome
-Exec=/home/ken/chrome/chrome %u
-Type=Application
-Icon=/home/ken/.local/share/icons/hicolor/128x128/apps/my-chrome.png

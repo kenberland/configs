@@ -1,8 +1,8 @@
 [Default Applications]
-x-scheme-handler/http=chromium.desktop
-x-scheme-handler/https=chromium.desktop
-text/html=chromium.desktop
+x-scheme-handler/http=google-chrome.desktop
+x-scheme-handler/https=google-chrome.desktop
+text/html=google-chrome.desktop
 
 [Added Associations]
 application/octet-stream=userapp-emacs-TART8X.desktop
-text/html=chromium.desktop
+text/html=google-chrome.desktop

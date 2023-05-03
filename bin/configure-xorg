@@ -4,18 +4,29 @@ set -x
 logger "configure-xorg started"
 
 
-xinput set-prop "PS/2 Generic Mouse" "Evdev Middle Button Emulation" "1"
-xinput set-prop "PS/2 Generic Mouse" "Evdev Wheel Emulation" "1"
-xinput set-prop "PS/2 Generic Mouse" "Evdev Wheel Emulation Button" "3"
-
-xinput set-prop "SynPS/2 Synaptics TouchPad" "Synaptics Edge Scrolling" 1 1 0
-xinput set-prop "SynPS/2 Synaptics TouchPad" "Synaptics Edges" 0 0 0 4282
-xinput set-prop "SynPS/2 Synaptics TouchPad" "Synaptics Scrolling Distance" 100 100
-xinput set-prop "SynPS/2 Synaptics TouchPad" "Synaptics Tap Time" 0
-
-xinput set-prop "PixArt Microsoft USB Optical Mouse" "Device Accel Velocity Scaling" 3
+xinput set-prop "PixArt Microsoft USB Optical Mouse" "Device Accel Velocity Scaling" 1
 
 exit
+
+
+#xinput set-prop "PS/2 Generic Mouse" "Evdev Middle Button Emulation" "1"
+#xinput set-prop "PS/2 Generic Mouse" "Evdev Wheel Emulation" "1"
+#xinput set-prop "PS/2 Generic Mouse" "Evdev Wheel Emulation Button" "3"
+
+#xinput set-prop "SYNA3071:00 06CB:82F1 Touchpad" "Synaptics Edge Scrolling" 1 1 0
+#xinput set-prop "SYNA3071:00 06CB:82F1 Touchpad" "Synaptics Edges" 0 300 0 4282
+#xinput set-prop "SYNA3071:00 06CB:82F1 Touchpad" "Synaptics Scrolling Distance" 10 10
+#xinput set-prop "SYNA3071:00 06CB:82F1 Touchpad" "Synaptics Tap Time" 0
+#xinput set-prop "SYNA3071:00 06CB:82F1 Touchpad" "Two-Finger Scrolling" 0 0
+#xinput set-prop "SYNA3071:00 06CB:82F1 Touchpad" "Tap Move" 0
+
+#xinput set-prop 'PS/2 Generic Mouse' 'libinput Accel Speed' .9999
+#xinput set-prop 'PS/2 Generic Mouse' 'libinput Middle Emulation Enabled' 1
+
+#xmodmap -e "keycode 64 = Insert"
+#xmodmap -e "keycode 133 = Print"
+
+
 
 function match_prop {
     PROP=$(xinput --list-props $ID | grep "$1" | ruby -n -e '$_.match /(\d+)/; puts $1')
